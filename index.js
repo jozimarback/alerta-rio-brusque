@@ -18,12 +18,12 @@ function observar_nivel_rio_brusque(nivel_rio_risco){
 
         let nivel_rio_txt = $("#example1").find('tbody td:contains(CEOPS)').next().next()[1].children[0].data
         let nivel_rio = parseFloat(nivel_rio_txt.replace(',','.'))
-
+        let data_hora = new Date().toLocaleString("pt-br")
         if(nivel_rio > nivel_rio_risco){
-            console.log(`nivel rio alto ${nivel_rio}`) 
+            console.log(`${data_hora} nivel rio alto ${nivel_rio}`) 
             await audic.play();
         } else {
-            console.log(`nivel rio baixo ${nivel_rio}`)
+            console.log(`${data_hora} nivel rio baixo ${nivel_rio}`)
         }
     });
 }
