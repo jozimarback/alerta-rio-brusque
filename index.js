@@ -11,24 +11,29 @@ var leitor = readline.createInterface({
 
 
 function observar_nivel_rio_brusque(nivel_rio_risco){
-    fetch("https://defesacivil.brusque.sc.gov.br/monitoramento/tabela")
-    .then((response) => response.text())
-    .then(async (texto_pagina) => {
-        let $ = cheerio.load(texto_pagina)
+    let data_hora = new Date().toLocaleString("pt-br")
 
-        let nivel_rio_txt = $("#example1").find('tbody td:contains(CEOPS)').next().next()[1].children[0].data
-        let nivel_rio = parseFloat(nivel_rio_txt.replace(',','.'))
-        let data_hora = new Date().toLocaleString("pt-br")
-        if(nivel_rio > nivel_rio_risco){
-            console.log(`${data_hora} nivel rio alto ${nivel_rio}`) 
-            await audic.play();
-        } else {
-            console.log(`${data_hora} nivel rio baixo ${nivel_rio}`);
-            if(audic.playing){
-                await audic.pause();
+    try{
+        fetch("https://defesacivil.brusque.sc.gov.br/monitoramento/tabela")
+        .then((response) => response.text())
+        .then(async (texto_pagina) => {
+            let $ = cheerio.load(texto_pagina)
+
+            let nivel_rio_txt = $("#example1").find('tbody td:contains(CEOPS)').next().next()[1].children[0].data
+            let nivel_rio = parseFloat(nivel_rio_txt.replace(',','.'))
+            if(nivel_rio > nivel_rio_risco){
+                console.log(`${data_hora} nivel rio alto ${nivel_rio}`) 
+                await audic.play();
+            } else {
+                console.log(`${data_hora} nivel rio baixo ${nivel_rio}`);
+                if(audic.playing){
+                    await audic.pause();
+                }
             }
-        }
-    });
+        });
+    } catch (e) {
+        console.log(`${data_hora} Não foi possível obter nível do rio`)
+    }
 }
 console.log("iniciar observação");
 leitor.question("Qual o nivel de risco do rio(mts) onde voce mora?\n", function(resposta) {
