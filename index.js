@@ -23,7 +23,10 @@ function observar_nivel_rio_brusque(nivel_rio_risco){
             console.log(`${data_hora} nivel rio alto ${nivel_rio}`) 
             await audic.play();
         } else {
-            console.log(`${data_hora} nivel rio baixo ${nivel_rio}`)
+            console.log(`${data_hora} nivel rio baixo ${nivel_rio}`);
+            if(audic.playing){
+                await audic.pause();
+            }
         }
     });
 }
