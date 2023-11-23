@@ -11,6 +11,7 @@
   "dependencies": {
     "audic": "^3.0.2",
     "cheerio": "^1.0.0-rc.12",
+    "inquirer": "^9.2.12",
     "node-fetch": "^3.3.2"
   },
   "type": "module"
