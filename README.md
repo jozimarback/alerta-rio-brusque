@@ -19,7 +19,7 @@ Node app para notificar com alarme, quando nivel de rio de Brusque(Ponte Estaiad
     ```shell
     node index.js
     ```
-- Informar valor em metros para monitorar:
-![cmd-node](./docs/cmd-node.png)
+- Informar local e valor em metros para monitorar:
+![cmd-node](./docs/rodar_node.gif)
 
 Ao atingir valor um som de sirene ira tocar em sua máquina.
